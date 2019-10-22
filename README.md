@@ -8,6 +8,8 @@
 
 3. Your commits should be elaborative and self explanatory to describe the changes. Single commits for task/PR not allowed.
 
+4. Questions will not be entertained except those related to code setup.
+
 ## IMPORTANT
 
 You will be able to complete the assesement if you take it as learning oppurtunity rather than for promotion/appraisal.
