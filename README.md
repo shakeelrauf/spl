@@ -42,7 +42,6 @@ rspec specs
 4. Try to refactor your solution to remove any obvious code smells. Don't worry about making it perfect. First make your code correct, and then refactor to the extent necessary that your solution is clear and maintainable. Manage your time wisely and stop when its good enough.
 5. Please commit your changes to your working branch frequently so I can get a sense of your development process.
 6. Your solution would be rejected if it does not have frequent commits. The commit messages should be brief and self-explanatory.
-6. When your code is ready, make a Pull Request.
 
 ## Hints
 
