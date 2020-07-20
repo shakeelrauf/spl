@@ -1,15 +1,11 @@
-# SPL Evaluation October 2019
+# SPL Evaluation
 
 ## Instructions
 
-1. This repo has two branch with name `block` and `design_patterns`. Each branch contain few tasks. You are required to switch to each branch and check the Readme file to know about tasks.
+1. This repo has branch with name `block`. The branch contain few tasks. You are required to switch to that branch and check the Readme file to know about tasks.
 
-2. Create your own branch from the corresponding exercise branch and generate PR when you are done with that.
+2. Clone this repo and push the solution along with the code on your personal repo and send us the link of that repo.
 
-3. Your commits should be elaborative and self explanatory to describe the changes. Single commits for task/PR not allowed.
+3. Your commits should be elaborative and self explanatory to describe the changes.
 
 4. Questions will not be entertained except those related to code setup.
-
-## IMPORTANT
-
-You will be able to complete the assesement if you take it as learning oppurtunity rather than for promotion/appraisal.
