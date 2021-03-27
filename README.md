@@ -31,7 +31,7 @@ Good luck!
 
 ```
 bundle install
-rspec specs
+rspec spec
 ```
 
 ## Instructions
