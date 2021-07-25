@@ -135,10 +135,7 @@ class Block
   # Return the result of adding the other Block (or Blocks) to self.
 
   def add (other)
-    if (self.start..self.end).include?(other.start) || 
-      (self.start..self.end).include?(other.end) ||
-      (other.start..other.end).include?(self.start) || 
-      (other.start..other.end).include?(self.end)
+    if overlaps(self,other)
       new_start, new_end = [self.start, other.start].min, [self.end,other.end].max 
       result = [Block.new(new_start,new_end)]
     else
@@ -164,11 +161,9 @@ class Block
         if (other.start..other.end).include?(self.start) &&
           (other.start..other.end).include?(self.end) 
           return []
-        elsif (other.start == self.start) &&
-          (other.end < self.end)
+        elsif a_encompasses_b(self,other)
           return [Block.new(other.end,self.end)]
-        elsif (other.end == self.end) &&
-          (other.start > self.start)
+        elsif b_encompasses_a(self, other)
           return [Block.new(self.start,other.start)]
         else
           s1, e1 = [self.start,other.start].min, [self.start,other.start].max 
@@ -197,6 +192,16 @@ class Block
         blocks + [b]
       end
     end
+  end
+
+  def a_encompasses_b(a,b)
+    (b.start == a.start) &&
+          (b.end < a.end)
+  end
+
+  def b_encompasses_a(a,b)
+    (b.end == a.end) &&
+          (b.start > a.start)
   end
 
   def overlaps(a,b)
