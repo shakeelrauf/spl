@@ -15,6 +15,7 @@
 #   Subtraction of one block from the middle of another:
 #   Block.new(5, 25) - Block.new(10, 20) == [Block.new(5, 10), Block.new(20, 25)]
 #
+require 'byebug'
 class Block
 
   def initialize (from, to)
@@ -134,6 +135,9 @@ class Block
   # Return the result of adding the other Block (or Blocks) to self.
 
   def add (other)
+    new_start, new_end = [self.start,other.start].min, [self.end,other.end].max 
+    result = Block.new(new_start,new_end)
+    return [result]
     # Implement.
   end
   
