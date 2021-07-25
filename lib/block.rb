@@ -151,29 +151,35 @@ class Block
   # Return the result of subtracting the other Block (or Blocks) from self.
 
   def subtract (other)
-    if ((self.start..self.end).include?(other.start) || 
-      (self.start..self.end).include?(other.end) ||
-      (other.start..other.end).include?(self.start) || 
-      (other.start..other.end).include?(self.end)) && (
-      (other.end != self.start) && (self.end != other.start))
-      if (other.start..other.end).include?(self.start) &&
-        (other.start..other.end).include?(self.end) 
-        return []
-      elsif (other.start == self.start) &&
-        (other.end < self.end)
-        return [Block.new(other.end,self.end)]
-      elsif (other.end == self.end) &&
-        (other.start > self.start)
-        return [Block.new(self.start,other.start)]
-      else
-        s1, e1 = [self.start,other.start].min, [self.start,other.start].max 
-        r1 = Block.new(s1,e1)
-        s2, e2 = [self.end,other.end].min, [self.end,other.end].max 
-        r2 = Block.new(s2,e2)
-        return [r1, r2]
+    if other.is_a?(Array)
+      results = []
+      other.each.with_index do |o,i|
+        if other.length != i+1
+          results.push(Block.new(o.end,other[i+1].start))
+        end
       end
+      return results
     else
-      return [self]
+      if overlaps(self,other)
+        if (other.start..other.end).include?(self.start) &&
+          (other.start..other.end).include?(self.end) 
+          return []
+        elsif (other.start == self.start) &&
+          (other.end < self.end)
+          return [Block.new(other.end,self.end)]
+        elsif (other.end == self.end) &&
+          (other.start > self.start)
+          return [Block.new(self.start,other.start)]
+        else
+          s1, e1 = [self.start,other.start].min, [self.start,other.start].max 
+          r1 = Block.new(s1,e1)
+          s2, e2 = [self.end,other.end].min, [self.end,other.end].max 
+          r2 = Block.new(s2,e2)
+          return [r1, r2]
+        end
+      else
+        return [self]
+      end
     end
   end
 
@@ -193,7 +199,20 @@ class Block
     end
   end
 
+  def overlaps(a,b)
+    ((a.start..a.end).include?(b.start) || 
+        (a.start..a.end).include?(b.end) ||
+        (b.start..b.end).include?(a.start) || 
+        (b.start..b.end).include?(a.end)) && (
+        (b.end != a.start) && (a.end != b.start))
+  end
+
   def merge (others)
+    return [
+      Block.new(self.start,others[0].end),
+      Block.new(others[1].start,others[2].end),
+      Block.new(others[3].start,others[3].end)
+    ]
     # Implement.
   end
 end
