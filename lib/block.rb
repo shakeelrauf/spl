@@ -151,21 +151,30 @@ class Block
   # Return the result of subtracting the other Block (or Blocks) from self.
 
   def subtract (other)
-    byebug
-    if (other.start..other.end).include?(self.start) &&
-      (other.start..other.end).include?(self.end) 
-      return []
-    elsif (other.start == self.start) &&
-      (other.end > self.end)
-      return [Block.new(other.end,self.end)]
+    if ((self.start..self.end).include?(other.start) || 
+      (self.start..self.end).include?(other.end) ||
+      (other.start..other.end).include?(self.start) || 
+      (other.start..other.end).include?(self.end)) && (
+      (other.end != self.start) && (self.end != other.start))
+      if (other.start..other.end).include?(self.start) &&
+        (other.start..other.end).include?(self.end) 
+        return []
+      elsif (other.start == self.start) &&
+        (other.end < self.end)
+        return [Block.new(other.end,self.end)]
+      elsif (other.end == self.end) &&
+        (other.start > self.start)
+        return [Block.new(self.start,other.start)]
+      else
+        s1, e1 = [self.start,other.start].min, [self.start,other.start].max 
+        r1 = Block.new(s1,e1)
+        s2, e2 = [self.end,other.end].min, [self.end,other.end].max 
+        r2 = Block.new(s2,e2)
+        return [r1, r2]
+      end
     else
-      s1, e1 = [self.start,other.start].min, [self.start,other.start].max 
-      r1 = Block.new(s1,e1)
-      s2, e2 = [self.end,other.end].min, [self.end,other.end].max 
-      r2 = Block.new(s2,e2)
-      return [r1, r2]
+      return [self]
     end
-    # Implement.
   end
 
   alias :- :subtract
