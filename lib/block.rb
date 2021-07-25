@@ -135,9 +135,16 @@ class Block
   # Return the result of adding the other Block (or Blocks) to self.
 
   def add (other)
-    new_start, new_end = [self.start,other.start].min, [self.end,other.end].max 
-    result = Block.new(new_start,new_end)
-    return [result]
+    if (self.start..self.end).include?(other.start) || 
+      (self.start..self.end).include?(other.end) ||
+      (other.start..other.end).include?(self.start) || 
+      (other.start..other.end).include?(self.end)
+      new_start, new_end = [self.start, other.start].min, [self.end,other.end].max 
+      result = [Block.new(new_start,new_end)]
+    else
+      result = [other, self]
+    end
+    return result
     # Implement.
   end
   
